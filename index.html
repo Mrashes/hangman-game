@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+ 	<!-- Hangman game -->
+	<script type="text/javascript">
+		// reset all letters
+		// Player selects letter
+			// if letter isUsed (in the word) fill in the blank
+			// if notUsed (not in the word) hang a part
+			// After those remove letter from pool, redo this input
+
+		var battleship = {
+			letters: 'abcdefghijklmnopqrstuvwxyz'.split(''),
+			usedLetters: [],
+
+			// move the input key to the usedLetters array and take it out of the letters array
+			pushLetter: function(used) {
+				var stash = letters.indexOf(used);
+				// This is for feedback testing
+				// console.log(stash);
+				if (stash > -1) {
+					this.letters.splice(stash, stash);
+					this.usedLetters.push(used);
+				}
+				else {
+					alert("Please use a letter key")
+				}
+			}
+
+		}
+
+
+		// document.onkeyup = function(event) {
+	 //        var userInput = event.key;
+
+	 //        if (userInput === "h") {
+	 //          car.honk();
+	 //          reWriteStats(car);
+	 //        }
+	 //        else if (userInput === "d") {
+	 //          car.driveToWork();
+	 //          reWriteStats(car);
+	 //        }
+	 //        else if (userInput === "t") {
+	 //          car.getTuneUp();
+	 //          reWriteStats(car);
+	 //        }
+	 //        else if (userInput === "w") {
+	 //          car.driveAroundWorld();
+	 //          reWriteStats(car);
+	 //        }
+	 //        else if (userInput === "c") {
+	 //          reWriteStats(car);
+	 //        }
+	 //        else {
+	          
+	 //        }
+	 //      }
+	</script>
+</body>
+</html>
