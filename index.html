@@ -4,6 +4,7 @@
 	<title></title>
 </head>
 <body>
+	<p>Choose a letter! (letters are chosen by hitting keys)</p>
 <!-- thought about using buttons for the interface then read instructions -->
 <!-- 	<button onclick=hangman.pushLetter()>"a"</button>
 	<button>"b"</button>
@@ -45,22 +46,34 @@
 			letters: "abcdefghijklmnopqrstuvwxyz".split(""),
 			usedLetters: [],
 			words: ["oak", "ash", "hickory", "walnut", "aspen", "pine", "cherry", "balsa"],
-			usedWords:[],
+			usedWords: [],
 			userInput: "",
+			currentWord: "",
 
+			randomNumber: function(min, max) {
+				return Math.floor(Math.random() * (max - min)) + min;
+			},
+			
+			newWord: function() {
+				var stash = this.randomNumber(0, this.words.length);
+				//Something fishy going on with this if else, the else is never occuring
+				if (this.words.length != 0 && stash > -1) {
+					this.usedWords.push(this.words[stash]);
+					this.words.splice(stash, 1);
+				}
+				else {
+					alert("Ran out of words")
+				}
+			},
 
 			// move the input key to the usedLetters array and take it out of the letters array
-			newWord: function() {
-				
-			}
-
 			pushLetter: function() {
 				var stash = this.letters.indexOf(this.userInput);
 				// This is for feedback testing
 				// console.log(stash);
 				if (stash > -1) {
-					this.letters.splice(stash, 1);
 					this.usedLetters.push(this.userInput);
+					this.letters.splice(stash, 1);
 				}
 				else {
 					alert("Please use a letter key")
@@ -90,33 +103,6 @@
 			hangman.pushLetter();
 			hangman.userInput = "";
 		}
-
-		// document.onkeyup = function(event) {
-	 //        var userInput = event.key;
-
-	 //        if (userInput === "h") {
-	 //          car.honk();
-	 //          reWriteStats(car);
-	 //        }
-	 //        else if (userInput === "d") {
-	 //          car.driveToWork();
-	 //          reWriteStats(car);
-	 //        }
-	 //        else if (userInput === "t") {
-	 //          car.getTuneUp();
-	 //          reWriteStats(car);
-	 //        }
-	 //        else if (userInput === "w") {
-	 //          car.driveAroundWorld();
-	 //          reWriteStats(car);
-	 //        }
-	 //        else if (userInput === "c") {
-	 //          reWriteStats(car);
-	 //        }
-	 //        else {
-	          
-	 //        }
-	 //      }
 	</script>
 </body>
 </html>
