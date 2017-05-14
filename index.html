@@ -50,6 +50,10 @@
 
 
 			// move the input key to the usedLetters array and take it out of the letters array
+			newWord: function() {
+				
+			}
+
 			pushLetter: function() {
 				var stash = this.letters.indexOf(this.userInput);
 				// This is for feedback testing
@@ -57,6 +61,21 @@
 				if (stash > -1) {
 					this.letters.splice(stash, 1);
 					this.usedLetters.push(this.userInput);
+				}
+				else {
+					alert("Please use a letter key")
+				}
+			},
+
+			pushWords : function() {
+				//randomWord goes in indexOF()
+				var stash = this.words.indexOf();
+				// This is for feedback testing
+				// console.log(stash);
+				if (stash > -1) {
+					this.words.splice(stash, 1);
+					//randomWord goes in push()
+					this.usedWords.push();
 				}
 				else {
 					alert("Please use a letter key")
