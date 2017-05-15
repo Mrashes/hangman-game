@@ -5,33 +5,6 @@
 </head>
 <body>
 	<p>Choose a letter! (letters are chosen by hitting keys)</p>
-<!-- thought about using buttons for the interface then read instructions -->
-<!-- 	<button onclick=hangman.pushLetter()>"a"</button>
-	<button>"b"</button>
-	<button>"c"</button>
-	<button>"d"</button>
-	<button>"e"</button>
-	<button>"f"</button>
-	<button>"g"</button>
-	<button>"h"</button>
-	<button>"i"</button>
-	<button>"j"</button>
-	<button>"k"</button>
-	<button>"l"</button>
-	<button>"m"</button>
-	<button>"n"</button>
-	<button>"o"</button>
-	<button>"p"</button>
-	<button>"q"</button>
-	<button>"r"</button>
-	<button>"s"</button>
-	<button>"t"</button>
-	<button>"u"</button>
-	<button>"v"</button>
-	<button>"w"</button>
-	<button>"x"</button>
-	<button>"y"</button>
-	<button>"z"</button> -->
 
  	<!-- Hangman game -->
 	<script type="text/javascript">
@@ -49,6 +22,7 @@
 			usedWords: [],
 			userInput: "",
 			currentWord: "",
+			currentGuess: [],
 
 			// random whole number generators
 			randomNumber: function(min, max) {
@@ -71,6 +45,15 @@
 					alert("Ran out of words")
 				}
 			},
+
+			// this displays blanks for the number of letters in the word
+			displayWord: function() {
+				this.currentGuess = [];
+				for (i=0; i<this.currentWord.length; i++) {
+					this.currentGuess.push("_");
+				}
+			},
+
 
 			// move the input key to the usedLetters array and take it out of the letters array
 			pushLetter: function() {
