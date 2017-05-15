@@ -56,9 +56,13 @@
 			
 			newWord: function() {
 				var stash = this.randomNumber(0, this.words.length);
-				//Something fishy going on with this if else, the else is never occuring
+				//The && is for making sure you dont use more words then you have
 				if (this.words.length != 0 && stash > -1) {
+					// reset currentWord
+					this.currentWord = ""
 					this.usedWords.push(this.words[stash]);
+					// assign new currentWord
+					this.currentWord = this.words[stash];
 					this.words.splice(stash, 1);
 				}
 				else {
@@ -79,22 +83,6 @@
 					alert("Please use a letter key")
 				}
 			},
-
-			pushWords : function() {
-				//randomWord goes in indexOF()
-				var stash = this.words.indexOf();
-				// This is for feedback testing
-				// console.log(stash);
-				if (stash > -1) {
-					this.words.splice(stash, 1);
-					//randomWord goes in push()
-					this.usedWords.push();
-				}
-				else {
-					alert("Please use a letter key")
-				}
-			},
-
 		}
 
 		// when you hit a key it runs the functions
