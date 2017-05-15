@@ -50,10 +50,12 @@
 			userInput: "",
 			currentWord: "",
 
+			// random whole number generators
 			randomNumber: function(min, max) {
 				return Math.floor(Math.random() * (max - min)) + min;
 			},
 			
+			// selecting new word
 			newWord: function() {
 				var stash = this.randomNumber(0, this.words.length);
 				//The && is for making sure you dont use more words then you have
