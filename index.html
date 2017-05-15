@@ -54,6 +54,19 @@
 				}
 			},
 
+			// replace blanks with the correcct letter
+			displayLetter: function() {
+				for (i=0; i < this.currentWord.length; i++) {
+					if (i===this.currentWord.indexOf(this.userInput)) {
+						this.currentGuess[i] = this.userInput;
+						// for testing
+						// console.log(currentGuess);
+					}
+					else {
+					}
+				}
+			}
+
 
 			// move the input key to the usedLetters array and take it out of the letters array
 			pushLetter: function() {
@@ -70,7 +83,7 @@
 			},
 		}
 
-		// when you hit a key it runs the functions
+		// when you hit a key it runs the the game
 		document.onkeyup = function(event){
 			hangman.userInput = event.key;
 			hangman.pushLetter();
