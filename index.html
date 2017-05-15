@@ -39,6 +39,7 @@
 					this.usedWords.push(this.words[stash]);
 					// assign new currentWord
 					this.currentWord = this.words[stash];
+					// scraps word that has been used
 					this.words.splice(stash, 1);
 				}
 				else {
