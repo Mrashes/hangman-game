@@ -11,7 +11,7 @@
 	<script type="text/javascript">
 		// reset all letters
 		// Player selects letter check
-			// if letter isUsed (in the word) fill in the blank
+			// if letter isUsed (in the word) fill in the blank check
 			// if notUsed (not in the word) hang a part 
 			// After those remove letter from pool, redo this inputcheck
 
@@ -31,7 +31,7 @@
 			reset: function(){
 				this.letters =  "abcdefghijklmnopqrstuvwxyz".split("");
 				this.usedLetters = [];
-			}
+			},
 
 			// random whole number generators
 			randomNumber: function(min, max) {
@@ -95,7 +95,14 @@
 					alert("Please use a letter key")
 				}
 			},
-
+			// This function is kind of broken  the goal is for when you finish a word it asks if you want to do another word.  If true get new word, else nothing.
+			// wordDone: function() {
+			// 	if (this.currentGuess.indexOf["_"] === -1){
+			// 		if (confirm("Congrats! want to play again?")) {
+			// 			this.newWord();
+			//			}
+				
+			// }
 
 		}
 
@@ -105,11 +112,13 @@
 			hangman.userInput = event.key;
 			hangman.displayLetter();
 			hangman.pushLetter();
-			hangman.userInput = "";
+			// hangman.userInput = ""; testing to ensure letters are being stored
 
 			var content = document.getElementById('word');
 			content.innerHTML = "<p>" + hangman.currentGuess + "</p>";
 		}
+
+		// hangman.wordDone();
 		// showing the current progress (dont know where to put it)
 	</script>
 </body>
