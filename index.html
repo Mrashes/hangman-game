@@ -5,6 +5,7 @@
 </head>
 <body>
 	<p>Choose a letter! (letters are chosen by hitting keys)</p>
+	<p>Hit Enter for a new word</p>
 	<p id="word">testing</p>
 
  	<!-- Hangman game -->
@@ -41,7 +42,7 @@
 			// this displays blanks for the number of letters in the word
 			displayWord: function() {
 				this.currentGuess = [];
-				for (i=0; i<this.currentWord.length; i++) {
+				for (i=0; i < this.currentWord.length; i++) {
 					this.currentGuess.push("_");
 				}
 			},
@@ -95,27 +96,31 @@
 					alert("Please use a letter key")
 				}
 			},
-			// This function is kind of broken  the goal is for when you finish a word it asks if you want to do another word.  If true get new word, else nothing.
-			// wordDone: function() {
-			// 	if (this.currentGuess.indexOf["_"] === -1){
-			// 		if (confirm("Congrats! want to play again?")) {
-			// 			this.newWord();
-			//			}
-				
-			// }
 
+			// This function is kind of broken  the goal is for when you finish a word it asks if you want to do another word.  If true get new word, else nothing.
+			wordDone: function() {
+				if (this.currentGuess.indexOf["_"] != -1){
+					if (confirm("Congrats! want to play again?")) {
+						this.newWord();
+						}
+				}
+			}
 		}
 
 		// when you hit a key it runs the the game
 		document.onkeyup = function(event){
+			if (event.key == "Enter") {
+				hangman.newWord()
+			}
+			else{
+				hangman.userInput = event.key;
+				hangman.displayLetter();
+				hangman.pushLetter();
+				// hangman.userInput = ""; testing to ensure letters are being stored
 
-			hangman.userInput = event.key;
-			hangman.displayLetter();
-			hangman.pushLetter();
-			// hangman.userInput = ""; testing to ensure letters are being stored
-
-			var content = document.getElementById('word');
-			content.innerHTML = "<p>" + hangman.currentGuess + "</p>";
+				var content = document.getElementById('word');
+				content.innerHTML = "<p>" + hangman.currentGuess + "</p>";
+			}
 		}
 
 		// hangman.wordDone();
