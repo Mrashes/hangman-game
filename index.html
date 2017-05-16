@@ -27,6 +27,12 @@
 
 			// functions
 
+			// reset letters upon new word
+			reset: function(){
+				this.letters =  "abcdefghijklmnopqrstuvwxyz".split("");
+				this.usedLetters = [];
+			}
+
 			// random whole number generators
 			randomNumber: function(min, max) {
 				return Math.floor(Math.random() * (max - min)) + min;
@@ -42,6 +48,7 @@
 
 			// selecting new word
 			newWord: function() {
+				this.reset();
 				var stash = this.randomNumber(0, this.words.length);
 				//The && is for making sure you dont use more words then you have
 				if (this.words.length != 0 && stash > -1) {
@@ -64,8 +71,6 @@
 				for (i=0; i < this.currentWord.length; i++) {
 					if (i===this.currentWord.indexOf(this.userInput)) {
 						this.currentGuess[i] = this.userInput;
-						// for testing
-						// console.log(currentGuess);
 					}
 					else {
 					}
@@ -90,6 +95,8 @@
 					alert("Please use a letter key")
 				}
 			},
+
+
 		}
 
 		// when you hit a key it runs the the game
