@@ -5,14 +5,15 @@
 </head>
 <body>
 	<p>Choose a letter! (letters are chosen by hitting keys)</p>
+	<p id="word"></p>
 
  	<!-- Hangman game -->
 	<script type="text/javascript">
 		// reset all letters
-		// Player selects letter
+		// Player selects letter check
 			// if letter isUsed (in the word) fill in the blank
-			// if notUsed (not in the word) hang a part
-			// After those remove letter from pool, redo this input
+			// if notUsed (not in the word) hang a part 
+			// After those remove letter from pool, redo this inputcheck
 
 		var hangman = {
 			// creation of variables
@@ -24,11 +25,21 @@
 			currentWord: "",
 			currentGuess: [],
 
+			// functions
+
 			// random whole number generators
 			randomNumber: function(min, max) {
 				return Math.floor(Math.random() * (max - min)) + min;
 			},
-			
+
+			// this displays blanks for the number of letters in the word
+			displayWord: function() {
+				this.currentGuess = [];
+				for (i=0; i<this.currentWord.length; i++) {
+					this.currentGuess.push("_");
+				}
+			},
+
 			// selecting new word
 			newWord: function() {
 				var stash = this.randomNumber(0, this.words.length);
@@ -41,17 +52,10 @@
 					this.currentWord = this.words[stash];
 					// scraps word that has been used
 					this.words.splice(stash, 1);
+					this.displayWord();
 				}
 				else {
 					alert("Ran out of words")
-				}
-			},
-
-			// this displays blanks for the number of letters in the word
-			displayWord: function() {
-				this.currentGuess = [];
-				for (i=0; i<this.currentWord.length; i++) {
-					this.currentGuess.push("_");
 				}
 			},
 
@@ -66,7 +70,7 @@
 					else {
 					}
 				}
-			}
+			},
 
 
 			// move the input key to the usedLetters array and take it out of the letters array
@@ -87,9 +91,13 @@
 		// when you hit a key it runs the the game
 		document.onkeyup = function(event){
 			hangman.userInput = event.key;
+			hangman.displayLetter();
 			hangman.pushLetter();
 			hangman.userInput = "";
+			var word = document.getElementById("word");
+			word.innerhtml = ("<p>" + hangman.currentGuess + "</p>");
 		}
+		// showing the current progress (dont know where to put it)
 	</script>
 </body>
 </html>
