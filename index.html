@@ -117,11 +117,12 @@
 			else{
 				hangman.userInput = event.key;
 				hangman.displayLetter();
+				//Slow down push letter
 				hangman.pushLetter();
 				// hangman.userInput = ""; testing to ensure letters are being stored
 
 				var content = document.getElementById('word');
-				content.innerHTML = "<p>" + hangman.currentGuess + "</p>";
+				content.innerHTML = "<p>" + hangman.currentGuess + "Used Letters - " + hangman.usedLetters + "</p>";
 			}
 		}
 
