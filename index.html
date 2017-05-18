@@ -30,7 +30,6 @@
 
 			// reset letters upon new word
 			reset: function(){
-				this.letters =  "abcdefghijklmnopqrstuvwxyz".split("");
 				this.usedLetters = [];
 			},
 
@@ -69,43 +68,47 @@
 
 			// move the input key to the usedLetters array and take it out of the letters array
 			pushLetter: function() {
-				var stash = this.letters.indexOf(this.userInput);
+				var stash = this.usedLetters.indexOf(this.userInput);
 				// This is for feedback testing
 				// console.log(stash);
-				if (stash > -1) {
+				if (stash = -1) {
 					this.usedLetters.push(this.userInput);
-					this.letters.splice(stash, 1);
+					// this.letters.splice(stash, 1);
+				}
+				else {
+					alert("You've used that letter before")
 				}
 				// else if (this.usedLetters.indexOf(this.userInput) > -1) {
 				// 	alert("You've used that letter before")
 				// }
 
-				// else {
+				// else if{this.usedLetters
 				// 	alert("Please use a letter key")
 				// }
 			},
 
 			// replace blanks with the correcct letter
 			displayLetter: function() {
-				for (var i=0; i < this.currentWord.length; i++) {
-					// Trying to figure out how to find the second letter that is the same
-					// || i===this.currentWord.indexOf(this.userInput, this.userInput.indexOf(i) + 1)
-					if (i===this.currentWord.indexOf(this.userInput)) {
+				for (var i=0; i < this.currentWord.length+1; i++) {
+					if (this.userInput===this.currentWord[i]) {
 						this.currentGuess[i] = this.userInput;
 					}
 					else {
-						this.pushLetter()
+						
 					}
 				}
+				this.pushLetter();
 			},
 
 			// This function is kind of broken  the goal is for when you finish a word it asks if you want to do another word.  If true get new word, else nothing.
 			wordDone: function() {
-				if (this.currentGuess.indexOf["_"] != -1){
+				if (this.currentGuess.indexOf["_"] === -1){
 					if (confirm("Congrats! want to play again?")) {
 						this.newWord();
 						}
+					else{console.log("Didn't work");}
 				}
+				else {}
 			},
 		};
 		// checks if DOM ready ?  Maybe I should do this
@@ -119,8 +122,6 @@
 			else{
 				hangman.userInput = event.key;
 				hangman.displayLetter();
-				//Slow down push letter
-				// hangman.pushLetter();
 				// hangman.userInput = ""; testing to ensure letters are being stored
 
 				var content = document.getElementById('word');
