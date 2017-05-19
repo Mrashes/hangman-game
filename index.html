@@ -5,8 +5,13 @@
 </head>
 <body>
 	<p>Choose a letter! (letters are chosen by hitting keys)</p>
-	<p>Hit Enter for a new word</p>
+	<p>You are allowed 6 missed letters</p>
+<!-- 	<p>Hit Enter for a new word</p> -->
 	<p id="word">testing</p>
+	<div id="tree">
+		<img src="assets/images/ashTree.jpg">
+	</div>
+	
 
  	<!-- Hangman game -->
 	<script type="text/javascript">
@@ -32,6 +37,7 @@
 			// reset letters upon new word
 			reset: function(){
 				this.usedLetters = [];
+				this.counter = 0;
 			},
 
 			// random whole number generators
@@ -44,6 +50,15 @@
 				this.currentGuess = [];
 				for (var i=0; i < this.currentWord.length; i++) {
 					this.currentGuess.push("_");
+				}
+			},
+
+			//the guesses counter cant go pass 6 tries more then the length of the current word
+			guessLimit: function() {
+				if (this.counter == 6) {
+					if (confirm("You lost!  Play again?")) {
+						this.newWord()
+					}
 				}
 			},
 
@@ -61,19 +76,26 @@
 					// scraps word that has been used
 					this.words.splice(stash, 1);
 					this.displayWord();
+					//display image hint
+					tree.innerHTML = "<img src=\"assets/images/" + this.currentWord + "Tree.jpg\">"
+					//display score
 					var content = document.getElementById('word');
 					content.innerHTML = "<p>" + hangman.currentGuess + "  Used Letters - " + hangman.usedLetters + "</p>";
 				}
 				else {
-					alert("Ran out of words")
+					alert("Ran out of words please refresh")
 				}
 			},
 
 			// move the input key to the usedLetters array and take it out of the letters array
 			pushLetter: function() {
 				var stash = this.usedLetters.indexOf(this.userInput);
-				if (stash === -1) {
+				if (this.currentGuess.indexOf(this.userInput) != -1) {
+					//play good music
+				}
+				else if (stash === -1) {
 					this.usedLetters.push(this.userInput);
+					this.counter++;
 				}
 				else {
 					alert("You've used that letter before")
@@ -90,6 +112,8 @@
 					}
 				}
 				this.pushLetter();
+				//guesses increase
+				
 			},
 
 			// This function is kind of broken  the goal is for when you finish a word it asks if you want to do another word.  If true get new word, else nothing.
@@ -97,8 +121,6 @@
 				if (this.currentGuess.indexOf("_") === -1){
 					if (confirm("Congrats! want to play again?")) {
 						this.newWord();
-						var content = document.getElementById('word');
-						content.innerHTML = "<p>" + hangman.currentGuess + "  Used Letters - " + hangman.usedLetters + "</p>";
 						}
 					}
 				
@@ -123,7 +145,8 @@
 				hangman.displayLetter();
 				// hangman.userInput = ""; testing to ensure letters are being stored
 				var content = document.getElementById('word');
-				content.innerHTML = "<p>" + hangman.currentGuess + "  Used Letters - " + hangman.usedLetters + "</p>";
+				content.innerHTML = "<p>" + hangman.currentGuess + "  Used Letters - " + hangman.usedLetters + " Missed Words: " + hangman.counter + "</p>";
+				hangman.guessLimit()
 				setTimeout(function() { hangman.wordDone(); }, 500);
 			}
 		}
