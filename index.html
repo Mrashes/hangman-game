@@ -25,6 +25,7 @@
 			userInput: "",
 			currentWord: "",
 			currentGuess: [],
+			counter: 0,
 
 			// functions
 
@@ -60,6 +61,8 @@
 					// scraps word that has been used
 					this.words.splice(stash, 1);
 					this.displayWord();
+					var content = document.getElementById('word');
+					content.innerHTML = "<p>" + hangman.currentGuess + "  Used Letters - " + hangman.usedLetters + "</p>";
 				}
 				else {
 					alert("Ran out of words")
@@ -69,22 +72,12 @@
 			// move the input key to the usedLetters array and take it out of the letters array
 			pushLetter: function() {
 				var stash = this.usedLetters.indexOf(this.userInput);
-				// This is for feedback testing
-				// console.log(stash);
-				if (stash = -1) {
+				if (stash === -1) {
 					this.usedLetters.push(this.userInput);
-					// this.letters.splice(stash, 1);
 				}
 				else {
 					alert("You've used that letter before")
 				}
-				// else if (this.usedLetters.indexOf(this.userInput) > -1) {
-				// 	alert("You've used that letter before")
-				// }
-
-				// else if{this.usedLetters
-				// 	alert("Please use a letter key")
-				// }
 			},
 
 			// replace blanks with the correcct letter
@@ -94,7 +87,6 @@
 						this.currentGuess[i] = this.userInput;
 					}
 					else {
-						
 					}
 				}
 				this.pushLetter();
@@ -102,35 +94,44 @@
 
 			// This function is kind of broken  the goal is for when you finish a word it asks if you want to do another word.  If true get new word, else nothing.
 			wordDone: function() {
-				if (this.currentGuess.indexOf["_"] === -1){
+				if (this.currentGuess.indexOf("_") === -1){
 					if (confirm("Congrats! want to play again?")) {
 						this.newWord();
+						var content = document.getElementById('word');
+						content.innerHTML = "<p>" + hangman.currentGuess + "  Used Letters - " + hangman.usedLetters + "</p>";
 						}
-					else{console.log("Didn't work");}
-				}
+					}
+				
 				else {}
 			},
 		};
-		// checks if DOM ready ?  Maybe I should do this
-			// when key hit do this
+		// checks if DOM ready
+		document.onload
+			hangman.newWord();
+		// when key hit do this
 		document.onkeyup = function(event){
 			if (event.key == "Enter") {
 				hangman.newWord()
 				var content = document.getElementById('word');
 				content.innerHTML = "<p>" + hangman.currentGuess + "</p>";
 			}
+			else if (hangman.letters.indexOf(event.key) === -1){
+				alert("Please use a letter key")
+			}
 			else{
 				hangman.userInput = event.key;
 				hangman.displayLetter();
 				// hangman.userInput = ""; testing to ensure letters are being stored
-
 				var content = document.getElementById('word');
-				content.innerHTML = "<p>" + hangman.currentGuess + "Used Letters - " + hangman.usedLetters + "</p>";
+				content.innerHTML = "<p>" + hangman.currentGuess + "  Used Letters - " + hangman.usedLetters + "</p>";
+				setTimeout(function() { hangman.wordDone(); }, 500);
 			}
 		}
-
-		// hangman.wordDone();
-		// showing the current progress (dont know where to put it)
 	</script>
 </body>
 </html>
+
+
+
+
+
