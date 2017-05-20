@@ -126,7 +126,7 @@ document.onload
 document.onkeyup = function(event){
 	if (event.key == "Enter") {
 		hangman.newWord()
-		this.refresh()
+		hangman.refresh()
 	}
 	else if (hangman.letters.indexOf(event.key) === -1){
 		alert("Please use a letter key")
