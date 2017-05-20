@@ -47,7 +47,7 @@ var hangman = {
 	//the guesses counter cant go pass 6 tries more then the length of the current word
 	guessLimit: function() {
 		if (this.counter == 8) {
-			if (confirm("You lost!  Play again?")) {
+			if (confirm("You lost!  The word was " + this.currentWord + " Play again?")) {
 				this.newWord()
 			}
 		}
