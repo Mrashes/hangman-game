@@ -2,18 +2,95 @@
 <html>
 <head>
 	<title></title>
+	<!-- Latest compiled and minified CSS & JS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
-	<p>Choose a letter! (letters are chosen by hitting keys)</p>
-	<p>You are allowed 6 missed letters</p>
-<!-- 	<p>Hit Enter for a new word</p> -->
-	<p id="word">testing</p>
-	<div id="tree">
-		<img src="assets/images/ashTree.jpg">
-	</div>
-	
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="text-center"><strong>Hangman</strong></h1>
+			<h4 class="text-center">Wood you like to answer?</h4>
+		</div>
 
- 	<!-- Hangman game -->
+		<div class="row">
+			<div class="col-lg-5" >
+				<div class="row">
+					<h3 class="text-center">Hint</h3>
+				</div>
+				<!-- treepic -->
+				<div id="tree">
+					<img src="assets/images/ashTree.jpg">
+				</div>
+			</div>
+			<div class="col-lg-7">
+				<div class="panel panel-default">
+					<!-- instructions -->
+					<div class="panel-heading">
+						<h3 class="panel-title text-center">
+							Instrucions
+						</h3>
+					</div>
+					<div class="panel-body text-center">
+						<p>Choose a letter! (letters are chosen by hitting keys)</p>
+						<p>You are allowed 8 missed letters</p>
+					</div>
+				</div>
+				<!-- current word -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title text-center">
+							Current Word
+						</h3>
+					</div>
+					<div class="panel-body text-center" id="word">
+						_ _ _ _ _ will all go here
+					</div>
+				</div>
+				<!-- used letters -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title text-center">
+							Used letters
+						</h3>
+					</div>
+					<div class="panel-body text-center" id="usedLetters">
+						used letters
+						
+					</div>
+				</div>
+				<!-- used letters -->
+				<div class="row"></div>
+					<div class="col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title text-center">
+									Total Guesses
+								</h3>
+							</div>
+							<div class="panel-body text-center" id="guess">
+								guess
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title text-center">
+									Total Wins
+								</h3>
+							</div>
+							<div class="panel-body text-center" id="win">
+								Winner Winner
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Hangman game -->
 	<script type="text/javascript">
 		// reset all letters
 		// Player selects letter check
@@ -25,12 +102,13 @@
 			// creation of variables
 			letters: "abcdefghijklmnopqrstuvwxyz".split(""),
 			usedLetters: [],
-			words: ["oak", "ash", "hickory", "walnut", "aspen", "pine", "cherry", "balsa"],
+			words: ["oak", "ash", "hickory", "walnut", "aspen", "pine", "cherry", "balsa", "teak", "beech", "maple", "cedar", "mahogany", "elm"],
 			usedWords: [],
 			userInput: "",
 			currentWord: "",
 			currentGuess: [],
 			counter: 0,
+			totalWins: 0,
 
 			// functions
 
@@ -38,6 +116,13 @@
 			reset: function(){
 				this.usedLetters = [];
 				this.counter = 0;
+			},
+
+			refresh: function(){
+					document.getElementById('word').innerHTML = "<p>" + hangman.currentGuess + "</p>";
+					document.getElementById('usedLetters').innerHTML = "<p>" + hangman.usedLetters + "</p>";
+					document.getElementById('guess').innerHTML = "<p>" + hangman.counter + "</p>";
+					document.getElementById('win').innerHTML = "<p>" + hangman.totalWins + "</p>";
 			},
 
 			// random whole number generators
@@ -55,7 +140,7 @@
 
 			//the guesses counter cant go pass 6 tries more then the length of the current word
 			guessLimit: function() {
-				if (this.counter == 6) {
+				if (this.counter == 8) {
 					if (confirm("You lost!  Play again?")) {
 						this.newWord()
 					}
@@ -77,10 +162,10 @@
 					this.words.splice(stash, 1);
 					this.displayWord();
 					//display image hint
-					tree.innerHTML = "<img src=\"assets/images/" + this.currentWord + "Tree.jpg\">"
+					tree.innerHTML = "<img class=\"img imgFormat\" src=\"assets/images/" + this.currentWord + "Tree.jpg\">"
 					//display score
-					var content = document.getElementById('word');
-					content.innerHTML = "<p>" + hangman.currentGuess + "  Used Letters - " + hangman.usedLetters + "</p>";
+					this.refresh()
+
 				}
 				else {
 					alert("Ran out of words please refresh")
@@ -120,6 +205,7 @@
 			wordDone: function() {
 				if (this.currentGuess.indexOf("_") === -1){
 					if (confirm("Congrats! want to play again?")) {
+						this.totalWins++
 						this.newWord();
 						}
 					}
@@ -134,8 +220,7 @@
 		document.onkeyup = function(event){
 			if (event.key == "Enter") {
 				hangman.newWord()
-				var content = document.getElementById('word');
-				content.innerHTML = "<p>" + hangman.currentGuess + "</p>";
+				this.refresh()
 			}
 			else if (hangman.letters.indexOf(event.key) === -1){
 				alert("Please use a letter key")
@@ -144,8 +229,7 @@
 				hangman.userInput = event.key;
 				hangman.displayLetter();
 				// hangman.userInput = ""; testing to ensure letters are being stored
-				var content = document.getElementById('word');
-				content.innerHTML = "<p>" + hangman.currentGuess + "  Used Letters - " + hangman.usedLetters + " Missed Words: " + hangman.counter + "</p>";
+				hangman.refresh()
 				hangman.guessLimit()
 				setTimeout(function() { hangman.wordDone(); }, 500);
 			}
