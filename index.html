@@ -119,7 +119,7 @@
 			},
 
 			refresh: function(){
-					document.getElementById('word').innerHTML = "<p>" + hangman.currentGuess + "</p>";
+					document.getElementById('word').innerHTML = "<p>" + hangman.currentGuess.join("  ") + "</p>";
 					document.getElementById('usedLetters').innerHTML = "<p>" + hangman.usedLetters + "</p>";
 					document.getElementById('guess').innerHTML = "<p>" + hangman.counter + "</p>";
 					document.getElementById('win').innerHTML = "<p>" + hangman.totalWins + "</p>";
